@@ -11,7 +11,8 @@ source $DIR/misc.bash
 
 HOMEUSER="evan"
 DASHLOG="mnbudget,mnpayments"
-DASHDEBUG="lldb --"
+#DASHDEBUG="lldb --"
+DASHDEBUG=""
 DASHNETWORK="testnet" #mainnet, testnet, regtest
 DASHDIR="./dash/develop"
 DASHBINARY="./dash/bin/develop/dashd"
