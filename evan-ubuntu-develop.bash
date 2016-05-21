@@ -17,8 +17,6 @@ DASHNETWORK="testnet" #mainnet, testnet, regtest
 DASHDIR="./dash/develop"
 DASHBINARY="./dash/bin/develop/dashd"
 
-source misc.bash
-
 cmd_dash()
 {
   if [ "$1" = "help" ]; then
