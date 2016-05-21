@@ -10,7 +10,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/misc.bash
 
 DASHLOG="mnbudget,mnpayments"
-DASHDEBUG="lldb --"
+DASHDEBUG=""
 DASHBINARY="./dashd"
 DASHDIR="dash/testnet"
 DASHBINARY="./dashd"
