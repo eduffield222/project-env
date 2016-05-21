@@ -11,7 +11,7 @@ source $DIR/misc.bash
 
 HOMEDIR="/home/ubuntu"
 DASHLOG="mnbudget,mnpayments"
-DASHDEBUG=" --"
+DASHDEBUG=""
 DASHBINARY="./dashd"
 DASHDIR="dash/testnet"
 DASHBINARY="./dashd"
