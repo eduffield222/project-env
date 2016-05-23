@@ -9,9 +9,10 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/misc.bash
 
-HOMEDIR="/home/ubuntu"
+HOMEUSER="evan"
 DASHLOG="mnbudget,mnpayments"
-DASHDEBUG=""
+DASHDEBUG="lldb --"
+DASHBINARY="./dashd"
 DASHDIR="dash/testnet"
 DASHBINARY="./dashd"
 DASHNETWORK="testnet"
@@ -44,13 +45,13 @@ cmd_dash()
   if [ "$1 $2" = "set debug" ]; then return; fi;
 
   #---- setup binaries
-  # if [ "$1 $2 $3" = "set mode qt" ]; then DASHBINARY="./dash-qt";echo "qt mode on"; return; fi;
-  # if [ "$1 $2 $3" = "set mode daemon" ]; then DASHBINARY="./dashd";echo "daemon mode on"; return; fi;
-  # if [ "$1 $2" = "set mode" ]; then return; fi;
+  if [ "$1 $2 $3" = "set mode qt" ]; then DASHBINARY="./dash-qt";echo "qt mode on"; return; fi;
+  if [ "$1 $2 $3" = "set mode daemon" ]; then DASHBINARY="./dashd";echo "daemon mode on"; return; fi;
+  if [ "$1 $2" = "set mode" ]; then return; fi;
 
   #---- generic commands
-  if [ "$1" = "start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=$HOMEDIR/$DASHDIR/data --debug=$DASHLOG -logthreadnames --daemon; return; fi;
-  if [ "$1 $2" = "hard start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=$HOMEDIR/$DASHDIR/data --debug=$DASHLOG -reindex -logthreadnames; return; fi;
+  if [ "$1" = "start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=/Users/$HOMEUSER/$DASHDIR/data -logthreadnames; return; fi;
+  if [ "$1 $2" = "hard start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=/Users/$HOMEUSER/$DASHDIR/data --debug=$DASHLOG -reindex -logthreadnames; return; fi;
   if [ "$1" = "cd" ]; then cd ~/$DASHDIR/src; return; fi;
 
   #---- tail $DASHDIR/network/debug.log
@@ -61,10 +62,8 @@ cmd_dash()
   array=$@;
   array="${array[@]:3}";
 
-  echo $array;
-  echo "$HOMEDIR/$DASHDIR/data"
   #----- cli commands
-  if [ "$1" = "cli" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=$HOMEDIR/$DASHDIR/data $array; return; fi;
+  if [ "$1" = "cli" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=/Users/$HOMEUSER/$DASHDIR/data $array; return; fi;
 
   echo "unknown dash command. see 'dash help'"
 }
