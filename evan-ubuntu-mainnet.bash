@@ -64,7 +64,7 @@ cmd_dash()
   if [ "$1 $DASHNETWORK" = "tail regtest" ]; then cd ~/$DASHDIR/data/regtest && tail -f debug.log ; return; fi;
 
   #---- open configuration in sublime
-  if [ "$1" = "config" ]; then sublime /Users/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
+  if [ "$1" = "config" ]; then sublime /home/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
 
   #---- reset data files
   if [ "$1 $2 $DASHNETWORK" = "reset all mainnet" ] || [ "$1 $2 $DASHNETWORK" == "reset governance mainnet" ]; then cd ~/$DASHDIR/data/ && rm governance.dat ; return; fi;
