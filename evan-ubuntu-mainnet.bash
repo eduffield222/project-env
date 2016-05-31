@@ -35,6 +35,10 @@ cmd_dash()
     echo "";
     echo "using cli:";
     echo "  cli [options]";
+    echo "  tail";
+    echo "  log";
+    echo "  config";
+    echo "  reset [all|governance]";
     echo "";
   fi;
 
@@ -58,6 +62,12 @@ cmd_dash()
   if [ "$1 $DASHNETWORK" = "tail testnet" ]; then cd ~/$DASHDIR/data/testnet3 && tail -f debug.log ; return; fi;
   if [ "$1 $DASHNETWORK" = "tail mainnet" ]; then cd ~/$DASHDIR/data && tail -f debug.log ; return; fi;
   if [ "$1 $DASHNETWORK" = "tail regtest" ]; then cd ~/$DASHDIR/data/regtest && tail -f debug.log ; return; fi;
+
+  #---- open configuration in sublime
+  if [ "$1" = "config" ]; then sublime /Users/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
+
+  #---- reset data files
+  if [ "$1 $2 $DASHNETWORK" = "reset all mainnet" ] || ["$1 $2 $DASHNETWORK" == "reset governance mainnet"]; then cd ~/$DASHDIR/data/ && rm governance.dat ; return; fi;
 
   array=$@;
   array="${array[@]:3}";

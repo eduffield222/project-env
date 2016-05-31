@@ -33,8 +33,12 @@ cmd_dash()
     echo "  start";
     echo "  stop";
     echo "";
-    echo "using cli:";
-    echo "  cli [options]";
+    echo "functionality:";
+    echo "  cli (cli command)";
+    echo "  tail";
+    echo "  log";
+    echo "  config";
+    echo "  reset [all|governance]";
     echo "";
   fi;
 
@@ -58,6 +62,17 @@ cmd_dash()
   if [ "$1 $DASHNETWORK" = "tail testnet" ]; then cd ~/$DASHDIR/data/testnet3 && tail -f debug.log ; return; fi;
   if [ "$1 $DASHNETWORK" = "tail mainnet" ]; then cd ~/$DASHDIR/data && tail -f debug.log ; return; fi;
   if [ "$1 $DASHNETWORK" = "tail regtest" ]; then cd ~/$DASHDIR/data/regtest && tail -f debug.log ; return; fi;
+
+  #---- cat $DASHDIR/network/debug.log
+  if [ "$1 $DASHNETWORK" = "log testnet" ]; then cd ~/$DASHDIR/data/testnet3 && cat debug.log ; return; fi;
+  if [ "$1 $DASHNETWORK" = "log mainnet" ]; then cd ~/$DASHDIR/data && cat debug.log ; return; fi;
+  if [ "$1 $DASHNETWORK" = "log regtest" ]; then cd ~/$DASHDIR/data/regtest && cat debug.log ; return; fi;
+
+  #---- open configuration in sublime
+  if [ "$1" = "config" ]; then sublime /Users/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
+
+  #---- reset data files
+  if [ "$1 $2" = "reset all" ] || ["$1 $2" == "reset governance"]; then cd ~/$DASHDIR/data/testnet3 && rm governance.dat ; return; fi;
 
   array=$@;
   array="${array[@]:3}";
