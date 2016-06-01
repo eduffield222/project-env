@@ -36,6 +36,7 @@ cmd_dash()
     echo "";
     echo "functionality:";
     echo "  cli (cli command)";
+    echo "  compile";
     echo "  tail";
     echo "  log";
     echo "  config";
@@ -58,7 +59,8 @@ cmd_dash()
   if [ "$1" = "start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=/$HOMEDIR/$HOMEUSER/$DASHDIR/data -logthreadnames; return; fi;
   if [ "$1 $2" = "hard start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=/$HOMEDIR/$HOMEUSER/$DASHDIR/data --debug=$DASHLOG -reindex -logthreadnames; return; fi;
   if [ "$1" = "cd" ]; then cd ~/$DASHDIR/src; return; fi;
-  if [ "$1" = "stop" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=/home/$HOMEUSER/$DASHDIR/data stop; return; fi;
+  if [ "$1" = "stop" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=/$HOMEDIR/$HOMEUSER/$DASHDIR/data stop; return; fi;
+  if [ "$1" = "compile" ]; then cd ~/$DASHDIR/src; make; return; fi;
 
   #---- tail $DASHDIR/network/debug.log
   if [ "$1 $DASHNETWORK" = "tail testnet" ]; then cd ~/$DASHDIR/data/testnet3 && tail -f debug.log ; return; fi;

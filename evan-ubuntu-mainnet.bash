@@ -36,6 +36,7 @@ cmd_dash()
     echo "";
     echo "using cli:";
     echo "  cli [options]";
+    echo "  compile";
     echo "  tail";
     echo "  log";
     echo "  config";
@@ -59,6 +60,7 @@ cmd_dash()
   if [ "$1 $2" = "hard start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --daemon --datadir=/$HOMEDIR/$HOMEUSER/$DASHDIR/data --debug=$DASHLOG -reindex -logthreadnames; return; fi;
   if [ "$1" = "cd" ]; then cd ~/$DASHDIR/src; return; fi;
   if [ "$1" = "stop" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=/$HOMEDIR/$HOMEUSER/$DASHDIR/data stop; return; fi;
+  if [ "$1" = "compile" ]; then cd ~/$DASHDIR/src; make; return; fi;
 
   #---- tail $DASHDIR/network/debug.log
   if [ "$1 $DASHNETWORK" = "tail testnet" ]; then cd ~/$DASHDIR/data/testnet3 && tail -f debug.log ; return; fi;
@@ -68,8 +70,9 @@ cmd_dash()
   #---- open configuration in sublime
   if [ "$1" = "config" ]; then sublime /$HOMEDIR/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
 
-  #---- reset data files
-  if [ "$1 $2 $DASHNETWORK" = "reset all mainnet" ] || [ "$1 $2 $DASHNETWORK" == "reset governance mainnet" ]; then cd ~/$DASHDIR/data/ && rm governance.dat; echo "governance data was reset successfully"; return; fi;
+  #---- reset data files --       
+  #                             (two spaces)
+  if [ "$1 $2 $DASHNETWORK" = "reset  mainnet" ] || [ "$1 $2 $DASHNETWORK" == "reset governance mainnet" ]; then cd ~/$DASHDIR/data/ && rm governance.dat; echo "governance data was reset successfully"; return; fi;
 
   array=$@;
   array="${array[@]:3}";
