@@ -10,7 +10,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/misc.bash
 
 HOMEUSER="evan"
-DASHLOG="mnbudget,mnpayments"
+DASHLOG="mnbudget,mnpayments,net"
 DASHDEBUG="lldb --"
 DASHBINARY="./dashd"
 DASHDIR="dash/testnet"
@@ -57,6 +57,7 @@ cmd_dash()
   if [ "$1" = "start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=/Users/$HOMEUSER/$DASHDIR/data -logthreadnames; return; fi;
   if [ "$1 $2" = "hard start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=/Users/$HOMEUSER/$DASHDIR/data --debug=$DASHLOG -reindex -logthreadnames; return; fi;
   if [ "$1" = "cd" ]; then cd ~/$DASHDIR/src; return; fi;
+  if [ "$1" = "stop" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=/home/$HOMEUSER/$DASHDIR/data stop; return; fi;
 
   #---- tail $DASHDIR/network/debug.log
   if [ "$1 $DASHNETWORK" = "tail testnet" ]; then cd ~/$DASHDIR/data/testnet3 && tail -f debug.log ; return; fi;
@@ -72,7 +73,7 @@ cmd_dash()
   if [ "$1" = "config" ]; then sublime /Users/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
 
   #---- reset data files
-  if [ "$1 $2" = "reset all" ] || [ "$1 $2" == "reset governance" ]; then cd ~/$DASHDIR/data/testnet3 && rm governance.dat ; return; fi;
+  if [ "$1 $2" = "reset all" ] || [ "$1 $2" == "reset governance" ]; then cd ~/$DASHDIR/data/testnet3 && rm governance.dat; echo "governance data was reset successfully"; return; fi;
 
   array=$@;
   array="${array[@]:3}";
