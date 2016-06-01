@@ -10,6 +10,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/misc.bash
 
 HOMEUSER="ubuntu"
+HOMEDIR="home"
 DASHLOG="mnbudget,mnpayments"
 DASHDEBUG=""
 DASHBINARY="./dashd"
@@ -54,10 +55,10 @@ cmd_dash()
   if [ "$1 $2" = "set mode" ]; then return; fi;
 
   #---- generic commands
-  if [ "$1" = "start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --daemon --datadir=/home/$HOMEUSER/$DASHDIR/data -logthreadnames; return; fi;
-  if [ "$1 $2" = "hard start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --daemon --datadir=/home/$HOMEUSER/$DASHDIR/data --debug=$DASHLOG -reindex -logthreadnames; return; fi;
+  if [ "$1" = "start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --daemon --datadir=/$HOMEDIR/$HOMEUSER/$DASHDIR/data -logthreadnames; return; fi;
+  if [ "$1 $2" = "hard start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --daemon --datadir=/$HOMEDIR/$HOMEUSER/$DASHDIR/data --debug=$DASHLOG -reindex -logthreadnames; return; fi;
   if [ "$1" = "cd" ]; then cd ~/$DASHDIR/src; return; fi;
-  if [ "$1" = "stop" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=/home/$HOMEUSER/$DASHDIR/data stop; return; fi;
+  if [ "$1" = "stop" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=/$HOMEDIR/$HOMEUSER/$DASHDIR/data stop; return; fi;
 
   #---- tail $DASHDIR/network/debug.log
   if [ "$1 $DASHNETWORK" = "tail testnet" ]; then cd ~/$DASHDIR/data/testnet3 && tail -f debug.log ; return; fi;
@@ -70,7 +71,7 @@ cmd_dash()
   if [ "$1 $DASHNETWORK" = "log regtest" ]; then cd ~/$DASHDIR/data/regtest && cat debug.log ; return; fi;
 
   #---- open configuration in sublime
-  if [ "$1" = "config" ]; then sublime /home/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
+  if [ "$1" = "config" ]; then sublime /$HOMEDIR/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
 
   #---- reset data files
   if [ "$1 $2 $DASHNETWORK" = "reset all testnet" ] || [ "$1 $2 $DASHNETWORK" == "reset governance testnet" ]; then cd ~/$DASHDIR/data/testnet3 && rm governance.dat; echo "governance data was reset successfully"; return; fi;
@@ -79,7 +80,7 @@ cmd_dash()
   array="${array[@]:3}";
 
   #----- cli commands
-  if [ "$1" = "cli" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=/home/$HOMEUSER/$DASHDIR/data $array; return; fi;
+  if [ "$1" = "cli" ]; then cd ~/$DASHDIR/bin && ./dash-cli --datadir=/$HOMEDIR/$HOMEUSER/$DASHDIR/data $array; return; fi;
 
   echo "unknown dash command. see 'dash help'"
 }
