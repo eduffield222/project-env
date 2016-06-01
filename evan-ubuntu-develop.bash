@@ -54,8 +54,8 @@ cmd_dash()
   if [ "$1 $2" = "set mode" ]; then return; fi;
 
   #---- generic commands
-  if [ "$1" = "start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=/home/$HOMEUSER/$DASHDIR/data -logthreadnames; return; fi;
-  if [ "$1 $2" = "hard start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --datadir=/home/$HOMEUSER/$DASHDIR/data --debug=$DASHLOG -reindex -logthreadnames; return; fi;
+  if [ "$1" = "start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --daemon --datadir=/home/$HOMEUSER/$DASHDIR/data -logthreadnames; return; fi;
+  if [ "$1 $2" = "hard start" ]; then $DASHDEBUG ~/$DASHDIR/bin/$DASHBINARY --daemon --datadir=/home/$HOMEUSER/$DASHDIR/data --debug=$DASHLOG -reindex -logthreadnames; return; fi;
   if [ "$1" = "cd" ]; then cd ~/$DASHDIR/src; return; fi;
 
   #---- tail $DASHDIR/network/debug.log
