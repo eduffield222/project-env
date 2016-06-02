@@ -17,6 +17,7 @@ DASHBINARY="./dashd"
 DASHDIR="dash/testnet"
 DASHBINARY="./dashd"
 DASHNETWORK="testnet"
+EDITOR="vi"
 
 cmd_dash()
 {
@@ -72,8 +73,8 @@ cmd_dash()
   if [ "$1 $DASHNETWORK" = "log mainnet" ]; then cd ~/$DASHDIR/data && cat debug.log ; return; fi;
   if [ "$1 $DASHNETWORK" = "log regtest" ]; then cd ~/$DASHDIR/data/regtest && cat debug.log ; return; fi;
 
-  #---- open configuration in sublime
-  if [ "$1" = "config" ]; then sublime /$HOMEDIR/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
+  #---- open configuration in our editor
+  if [ "$1" = "config" ]; then $EDITOR /$HOMEDIR/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
 
   #---- reset data files
   if [ "$1 $2 $DASHNETWORK" = "reset all testnet" ] || [ "$1 $2 $DASHNETWORK" == "reset governance testnet" ]; then cd ~/$DASHDIR/data/testnet3 && rm governance.dat; echo "governance data was reset successfully"; return; fi;

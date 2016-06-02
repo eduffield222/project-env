@@ -17,6 +17,7 @@ DASHBINARY="./dashd"
 DASHDIR="dash/mainnet"
 DASHBINARY="./dashd"
 DASHNETWORK="mainnet"
+EDITOR="vi"
 
 cmd_dash()
 {
@@ -67,8 +68,8 @@ cmd_dash()
   if [ "$1 $DASHNETWORK" = "tail mainnet" ]; then cd ~/$DASHDIR/data && tail -f debug.log ; return; fi;
   if [ "$1 $DASHNETWORK" = "tail regtest" ]; then cd ~/$DASHDIR/data/regtest && tail -f debug.log ; return; fi;
 
-  #---- open configuration in sublime
-  if [ "$1" = "config" ]; then sublime /$HOMEDIR/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
+  #---- open configuration in our editor
+  if [ "$1" = "config" ]; then $EDITOR /$HOMEDIR/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
 
   #---- reset data files --       
   #                             (two spaces)
