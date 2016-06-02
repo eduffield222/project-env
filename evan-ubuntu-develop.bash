@@ -41,6 +41,7 @@ cmd_dash()
     echo "  tail";
     echo "  log";
     echo "  config";
+    echo "  masternode-config";
     echo "  reset [all|governance]";
     echo "";
   fi;
@@ -75,6 +76,7 @@ cmd_dash()
 
   #---- open configuration in our editor
   if [ "$1" = "config" ]; then $EDITOR /$HOMEDIR/$HOMEUSER/$DASHDIR/data/dash.conf; return; fi;
+  if [ "$1" = "masternode-config" ]; then $EDITOR /$HOMEDIR/$HOMEUSER/$DASHDIR/data/masternode.conf; return; fi;
 
   #---- reset data files
   if [ "$1 $2 $DASHNETWORK" = "reset all testnet" ] || [ "$1 $2 $DASHNETWORK" == "reset governance testnet" ]; then cd ~/$DASHDIR/data/testnet3 && rm governance.dat; echo "governance data was reset successfully"; return; fi;
