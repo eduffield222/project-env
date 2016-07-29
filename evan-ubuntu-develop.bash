@@ -9,7 +9,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $DIR/misc.bash
 
-HOMEUSER="ubuntu"
+HOMEUSER="evan"
 HOMEDIR="home"
 DASHLOG="mnbudget,mnpayments"
 DASHDEBUG=""
